@@ -108,8 +108,9 @@ namespace AdventOfCode2019
 					return Multiply(startAt, startAt + 1, startAt + 2, startAt + 3, data, pA, pB, pC);
 				case 3:
 					if (startAt + 1 >= data.Count) return -2;
-
+					Console.ForegroundColor = ConsoleColor.Magenta;
 					Console.WriteLine("Input:");
+					Console.ResetColor();
 					long input = Convert.ToInt64(Console.ReadLine());
 					int a3 = pA == 1 ? startAt + 1 : Convert.ToInt32(data[startAt + 1]);
 					if (data.Count <= a3) return -2;
@@ -119,8 +120,9 @@ namespace AdventOfCode2019
 					if (startAt + 1 >= data.Count) return -2;
 					int a4 = pA == 1 ? startAt + 1 : Convert.ToInt32(data[startAt + 1]);
 					if (data.Count <= a4) return -2;
-
+					Console.ForegroundColor = ConsoleColor.Cyan;
 					Console.WriteLine(data[a4].ToString());
+					Console.ResetColor();
 					return startAt + 2;
 				case 5:
 					if (startAt + 2 >= data.Count) return -2;
@@ -137,10 +139,14 @@ namespace AdventOfCode2019
 
 
 				case 99:
+					Console.ForegroundColor = ConsoleColor.Green;
 					Console.WriteLine("end of program");
+					Console.ResetColor();
 					return -1; //end of program
 				default:
+					Console.ForegroundColor = ConsoleColor.Red;
 					Console.WriteLine("unknown error");
+					Console.ResetColor();
 					return -2; //error - per challenge instructions any command other than 1, 2, or 99 is an error
 			}
 
