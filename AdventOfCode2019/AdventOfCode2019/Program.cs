@@ -6,7 +6,7 @@ namespace AdventOfCode2019
 	{
 		static void Main(string[] args)
 		{
-			Day4.Problem2();
+			Day5.Problem1();
 		}
 	}
 }
