@@ -14,16 +14,16 @@ namespace AdventOfCode2019
 		/// multiply data[a] * data[b] and store at data[c]
 		/// </summary>
 		/// <returns>true if successful, false if a,b,or c are out of range</returns>
-		public static int Multiply(int iP, int a, int b, int c, List<long> data, int pA = 0, int pB = 0, int pC = 0)
+		public static int Multiply(int iP, int c, int b, int a, List<long> data, int pC = 0, int pB = 0, int pA = 0)
 		{
-			pC = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
-			a = pA == 1 ? a : Convert.ToInt32(data[a]);
-			b = pB == 1 ? b : Convert.ToInt32(data[b]);
+			pA = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
 			c = pC == 1 ? c : Convert.ToInt32(data[c]);
+			b = pB == 1 ? b : Convert.ToInt32(data[b]);
+			a = pA == 1 ? a : Convert.ToInt32(data[a]);
 
-			if (data.Count <= a || data.Count <= b || data.Count <= c) return -2;
-			data[c] = data[a] * data[b];
-			return iP == c ? iP : iP + 4;
+			if (data.Count <= c || data.Count <= b || data.Count <= a) return -2;
+			data[a] = data[c] * data[b];
+			return iP == a ? iP : iP + 4;
 
 		}
 
@@ -31,57 +31,57 @@ namespace AdventOfCode2019
 		/// add data[a] + data[b] and store at data[c]
 		/// </summary>
 		/// <returns>true if successful, false if a,b,or c are out of range</returns>
-		public static int Add(int iP, int a, int b, int c, List<long> data, int pA = 0, int pB = 0, int pC = 0)
+		public static int Add(int iP, int c, int b, int a, List<long> data, int pC = 0, int pB = 0, int pA = 0)
 		{
-			pC = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
-			a = pA == 1 ? a : Convert.ToInt32(data[a]);
-			b = pB == 1 ? b : Convert.ToInt32(data[b]);
+			pA = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
 			c = pC == 1 ? c : Convert.ToInt32(data[c]);
-			if (data.Count <= a || data.Count <= b || data.Count <= c) return -2;
-			data[c] = data[a] + data[b];
-			return iP == c ? iP : iP + 4;
+			b = pB == 1 ? b : Convert.ToInt32(data[b]);
+			a = pA == 1 ? a : Convert.ToInt32(data[a]);
+			if (data.Count <= c || data.Count <= b || data.Count <= a) return -2;
+			data[a] = data[c] + data[b];
+			return iP == a ? iP : iP + 4;
 
 		}
 
-		public static int JumpIfTrue(int a, int b, int iP, List<long> data, int pA = 0, int pB = 0)
+		public static int JumpIfTrue(int c, int b, int iP, List<long> data, int pC = 0, int pB = 0)
 		{
-			a = pA == 1 ? a : Convert.ToInt32(data[a]);
-			b = pB == 1 ? b : Convert.ToInt32(data[b]);
-			if (data.Count <= a || data.Count <= b) return -2; //error
-			return data[a] != 0 ? Convert.ToInt32(data[b]) : iP + 3;
-
-		}
-
-		public static int JumpIfFalse(int a, int b, int iP, List<long> data, int pA = 0, int pB = 0)
-		{
-			a = pA == 1 ? a : Convert.ToInt32(data[a]);
-			b = pB == 1 ? b : Convert.ToInt32(data[b]);
-			if (data.Count <= a || data.Count <= b) return -2; //error
-			return data[a] == 0 ? Convert.ToInt32(data[b]) : iP + 3;
-
-		}
-
-		public static int LessThan(int iP, int a, int b, int c, List<long> data, int pA = 0, int pB = 0, int pC = 0)
-		{
-			pC = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
-			a = pA == 1 ? a : Convert.ToInt32(data[a]);
-			b = pB == 1 ? b : Convert.ToInt32(data[b]);
 			c = pC == 1 ? c : Convert.ToInt32(data[c]);
-			if (data.Count <= a || data.Count <= b || data.Count <= c) return -2;
-			data[c] = data[a] < data[b] ? 1 : 0;
-			return iP == c ? iP : iP + 4;
+			b = pB == 1 ? b : Convert.ToInt32(data[b]);
+			if (data.Count <= c || data.Count <= b) return -2; //error
+			return data[c] != 0 ? Convert.ToInt32(data[b]) : iP + 3;
 
 		}
 
-		public static int Equals(int iP, int a, int b, int c, List<long> data, int pA = 0, int pB = 0, int pC = 0)
+		public static int JumpIfFalse(int c, int b, int iP, List<long> data, int pC = 0, int pB = 0)
 		{
-			pC = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
-			a = pA == 1 ? a : Convert.ToInt32(data[a]);
-			b = pB == 1 ? b : Convert.ToInt32(data[b]);
 			c = pC == 1 ? c : Convert.ToInt32(data[c]);
-			if (data.Count <= a || data.Count <= b || data.Count <= c) return -2;
-			data[c] = data[a] == data[b] ? 1 : 0;
-			return iP == c ? iP : iP + 4;
+			b = pB == 1 ? b : Convert.ToInt32(data[b]);
+			if (data.Count <= c || data.Count <= b) return -2; //error
+			return data[c] == 0 ? Convert.ToInt32(data[b]) : iP + 3;
+
+		}
+
+		public static int LessThan(int iP, int c, int b, int a, List<long> data, int pC = 0, int pB = 0, int pA = 0)
+		{
+			pA = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
+			c = pC == 1 ? c : Convert.ToInt32(data[c]);
+			b = pB == 1 ? b : Convert.ToInt32(data[b]);
+			a = pA == 1 ? a : Convert.ToInt32(data[a]);
+			if (data.Count <= c || data.Count <= b || data.Count <= a) return -2;
+			data[a] = data[c] < data[b] ? 1 : 0;
+			return iP == a ? iP : iP + 4;
+
+		}
+
+		public static int Equals(int iP, int c, int b, int a, List<long> data, int pC = 0, int pB = 0, int pA = 0)
+		{
+			pA = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
+			c = pC == 1 ? c : Convert.ToInt32(data[c]);
+			b = pB == 1 ? b : Convert.ToInt32(data[b]);
+			a = pA == 1 ? a : Convert.ToInt32(data[a]);
+			if (data.Count <= c || data.Count <= b || data.Count <= a) return -2;
+			data[a] = data[c] == data[b] ? 1 : 0;
+			return iP == a ? iP : iP + 4;
 
 		}
 
@@ -95,9 +95,9 @@ namespace AdventOfCode2019
 		{
 			int instruction = Convert.ToInt32(data[iP]);
 			int opcode = instruction % 100;
-			int pA = instruction / 100 % 10;
+			int pC = instruction / 100 % 10;
 			int pB = instruction / 1000 % 10;
-			int pC = instruction / 10000;
+			int pA = instruction / 10000;
 
 
 			if (iP >= data.Count || iP < 0) return -2;
@@ -105,24 +105,24 @@ namespace AdventOfCode2019
 			{
 				case 1:
 					if (iP + 3 >= data.Count) return -2; //can't retrieve next values
-					return Add(iP, iP + 1, iP + 2, iP + 3, data, pA, pB, pC);
+					return Add(iP, iP + 1, iP + 2, iP + 3, data, pC, pB, pA);
 
 				case 2:
 					if (iP + 3 >= data.Count) return -2; //can't retrieve next values
-					return Multiply(iP, iP + 1, iP + 2, iP + 3, data, pA, pB, pC);
+					return Multiply(iP, iP + 1, iP + 2, iP + 3, data, pC, pB, pA);
 				case 3:
 					if (iP + 1 >= data.Count) return -2;
 					Console.ForegroundColor = ConsoleColor.Magenta;
 					Console.WriteLine("Input:");
 					Console.ResetColor();
 					long input = Convert.ToInt64(Console.ReadLine());
-					int a3 = pA == 1 ? iP + 1 : Convert.ToInt32(data[iP + 1]);
+					int a3 = pC == 1 ? iP + 1 : Convert.ToInt32(data[iP + 1]);
 					if (data.Count <= a3) return -2;
 					data[a3] = input;
 					return iP + 2;
 				case 4:
 					if (iP + 1 >= data.Count) return -2;
-					int a4 = pA == 1 ? iP + 1 : Convert.ToInt32(data[iP + 1]);
+					int a4 = pC == 1 ? iP + 1 : Convert.ToInt32(data[iP + 1]);
 					if (data.Count <= a4) return -2;
 					Console.ForegroundColor = ConsoleColor.Cyan;
 					Console.WriteLine(data[a4].ToString());
@@ -130,16 +130,16 @@ namespace AdventOfCode2019
 					return iP + 2;
 				case 5:
 					if (iP + 2 >= data.Count) return -2;
-					return JumpIfTrue(iP + 1, iP + 2, iP, data, pA, pB);
+					return JumpIfTrue(iP + 1, iP + 2, iP, data, pC, pB);
 				case 6:
 					if (iP + 2 >= data.Count) return -2;
-					return JumpIfFalse(iP + 1, iP + 2, iP, data, pA, pB);
+					return JumpIfFalse(iP + 1, iP + 2, iP, data, pC, pB);
 				case 7:
 					if (iP + 3 >= data.Count) return -2;
-					return LessThan(iP, iP + 1, iP + 2, iP + 3, data, pA, pB, pC);
+					return LessThan(iP, iP + 1, iP + 2, iP + 3, data, pC, pB, pA);
 				case 8:
 					if (iP + 3 >= data.Count) return -2;
-					return Equals(iP, iP + 1, iP + 2, iP + 3, data, pA, pB, pC);
+					return Equals(iP, iP + 1, iP + 2, iP + 3, data, pC, pB, pA);
 
 
 				case 99:
