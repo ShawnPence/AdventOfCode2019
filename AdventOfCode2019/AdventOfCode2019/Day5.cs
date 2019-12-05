@@ -16,6 +16,7 @@ namespace AdventOfCode2019
 		/// <returns>true if successful, false if a,b,or c are out of range</returns>
 		public static int Multiply(int startAt, int a, int b, int c, List<long> data, int pA = 0, int pB = 0, int pC = 0)
 		{
+			pC = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
 			a = pA == 1 ? a : Convert.ToInt32(data[a]);
 			b = pB == 1 ? b : Convert.ToInt32(data[b]);
 			c = pC == 1 ? c : Convert.ToInt32(data[c]);
@@ -32,6 +33,7 @@ namespace AdventOfCode2019
 		/// <returns>true if successful, false if a,b,or c are out of range</returns>
 		public static int Add(int startAt, int a, int b, int c, List<long> data, int pA = 0, int pB = 0, int pC = 0)
 		{
+			pC = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
 			a = pA == 1 ? a : Convert.ToInt32(data[a]);
 			b = pB == 1 ? b : Convert.ToInt32(data[b]);
 			c = pC == 1 ? c : Convert.ToInt32(data[c]);
@@ -61,6 +63,7 @@ namespace AdventOfCode2019
 
 		public static int LessThan(int startAt, int a, int b, int c, List<long> data, int pA = 0, int pB = 0, int pC = 0)
 		{
+			pC = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
 			a = pA == 1 ? a : Convert.ToInt32(data[a]);
 			b = pB == 1 ? b : Convert.ToInt32(data[b]);
 			c = pC == 1 ? c : Convert.ToInt32(data[c]);
@@ -72,6 +75,7 @@ namespace AdventOfCode2019
 
 		public static int Equals(int startAt, int a, int b, int c, List<long> data, int pA = 0, int pB = 0, int pC = 0)
 		{
+			pC = 0; //per day 5 instructions "parameters that an instruction writes to will never be in immediate mode"
 			a = pA == 1 ? a : Convert.ToInt32(data[a]);
 			b = pB == 1 ? b : Convert.ToInt32(data[b]);
 			c = pC == 1 ? c : Convert.ToInt32(data[c]);
