@@ -51,27 +51,22 @@ namespace AdventOfCode2019
 		static int uncommonAncestorCount(Dictionary<string, string> orbits, string start, string start2) 
 		{
 			HashSet<string> o1 = new HashSet<string>();
-			start = orbits[start];
+			start = orbits[start]; //begin counting at the object being orbited by start
 			while (orbits[start] != "COM")
 			{
 				o1.Add(start);
 				start = orbits[start];
 			}
 			HashSet<string> o2 = new HashSet<string>();
-			start2 = orbits[start2]; //start at the object "YOU" are orbiting
+			start2 = orbits[start2]; //begin counting at the object being orbited by start2
 			while (orbits[start2] != "COM")
 			{
 				o2.Add(start2);
 				start2 = orbits[start2];
 			}
-			HashSet<string> all = new HashSet<string>();
-			all.UnionWith(o1);
-			all.UnionWith(o2);
-			int commoncount = (o2.Count + o1.Count) - all.Count;
-			int result = (o2.Count + o1.Count - 2 * commoncount);
+			o1.SymmetricExceptWith(o2);
+			return o1.Count;
 
-			return result;
-
-			}
+		}
 	}
 }
