@@ -4,11 +4,12 @@ using System.Text;
 
 namespace AdventOfCode2019.Computer
 {
-	class CPU
+	public class CPU
 	{
 		Memory memory;
 
 		public int InstructionPointer { get; private set; } = 0;
+		
 
 		delegate int Function2Ints(int x, int y);
 		delegate bool Bool1Int(int x);
@@ -91,20 +92,51 @@ namespace AdventOfCode2019.Computer
 			return;
 		}
 
-		int Input()
+		private int[] input;
+		public int[] Input
 		{
-			Console.ForegroundColor = ConsoleColor.Magenta;
-			Console.WriteLine("Input:");
-			Console.ResetColor();
-			int input = Convert.ToInt32(Console.ReadLine());
-			return input;
+			get => input; 
+			
+			set
+			{
+				input = value;
+				hasInput = true;
+				waitingOnInput = false;
+				ii = 0;
+			}
 		}
+		public int ii = 0;
+		public bool hasInput = true;
+		public bool waitingOnInput = false;
+		int Input1()
+		{
+
+			//Console.ForegroundColor = ConsoleColor.Magenta;
+			//Console.WriteLine("Input:");
+			//Console.ResetColor();
+			//int input = Convert.ToInt32(Console.ReadLine());
+			//return input;
+
+			//for day 7 problems
+			int inp = Input[ii];
+			ii++;
+			if (ii >= Input.Length) hasInput = false;
+			return inp;
+
+
+		}
+
+		public int outputX;
 
 		void Output(object output)
 		{
-			Console.ForegroundColor = ConsoleColor.Cyan;
-			Console.WriteLine(output.ToString());
-			Console.ResetColor();
+
+			//Console.ForegroundColor = ConsoleColor.Cyan;
+			//Console.WriteLine(output.ToString());
+			//Console.ResetColor();
+
+			outputX = Convert.ToInt32(output);
+			
 		}
 
 		/// <summary>
@@ -131,7 +163,12 @@ namespace AdventOfCode2019.Computer
 					if (!checkSize(InstructionPointer + 1)) return;
 					int writeAddress = GetAddress(1, true);
 					if (!checkSize(writeAddress)) return;
-					memory[writeAddress] = Input();
+					if(!hasInput)
+					{
+						waitingOnInput = true;
+						return;
+					}
+					memory[writeAddress] = Input1();
 					InstructionPointer += 2;
 					return;
 				case 4: //output
@@ -156,9 +193,9 @@ namespace AdventOfCode2019.Computer
 
 
 				case 99:
-					Console.ForegroundColor = ConsoleColor.Green;
-					Console.WriteLine("end of program");
-					Console.ResetColor();
+					//Console.ForegroundColor = ConsoleColor.Green;
+					//Console.WriteLine("end of program");
+					//Console.ResetColor();
 					InstructionPointer = -1;
 					return; //end of program
 				default:

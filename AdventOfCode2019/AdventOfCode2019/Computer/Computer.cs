@@ -11,7 +11,7 @@ namespace AdventOfCode2019.Computer
 		public Memory Ram { get => ram; }
 
 
-		CPU processor;
+		public CPU processor;
 
 		public Computer(string[] input)
 		{
@@ -31,7 +31,7 @@ namespace AdventOfCode2019.Computer
 	
 		public void Run()
 		{
-			while (processor.InstructionPointer >= 0) processor.Compute();
+			while (processor.InstructionPointer >= 0 && !processor.waitingOnInput) processor.Compute();
 		}
 
 	}
