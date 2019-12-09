@@ -89,7 +89,7 @@ namespace AdventOfCode2019
 							int[] vals = new int[] { a + 5, b + 5, c + 5, d + 5, e + 5 };
 							for (int i = 0; i < 5; i++)
 							{ comp[i] = new Computer.Computer(fileName);
-								comp[i].processor.Input = new int[] { vals[i], signal };
+								comp[i].processor.Input = new long[] { vals[i], signal };
 								comp[i].Run();
 								signal = comp[i].processor.outputX;
 							}
@@ -97,7 +97,7 @@ namespace AdventOfCode2019
 							while (comp[4].processor.InstructionPointer > 0)
 							{
 								//run until E's program terminates
-								comp[l].processor.Input = new int[] { signal };
+								comp[l].processor.Input = new long[] { signal };
 								comp[l].Run();
 								signal = comp[l].processor.outputX;
 								l++;
@@ -118,7 +118,7 @@ namespace AdventOfCode2019
 		public static int getOutput(string fileName, int phase, int input)
 		{
 			Computer.Computer comp = new Computer.Computer(fileName);
-			comp.processor.Input = new int[] { phase, input };
+			comp.processor.Input = new long[] { phase, input };
 			comp.Run();
 			return comp.processor.outputX;
 		}

@@ -8,7 +8,7 @@ namespace AdventOfCode2019.Computer
 	public class Computer
 	{
 		Memory ram;
-		public Memory Ram { get => ram; }
+		public Memory Ram { get => ram; set => ram = value; }
 
 
 		public CPU processor;

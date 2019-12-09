@@ -6,25 +6,39 @@ namespace AdventOfCode2019.Computer
 {
 	public class Memory
 	{
-		List<int> ram; //using list to allow dynamic resizing memory if necessary for coding challenges
+		List<long> ram; //using list to allow dynamic resizing memory if necessary for coding challenges
 
-		public int this[int index]
+		public long this[int index]
 		{
-			get { return ram[index]; }
-			set { ram[index] = value; }
+			get {
+				while (ram.Count < index + 1) ram.Add(0);
+				return ram[index];
+			}
+			set { 
+				while (ram.Count < index + 1) ram.Add(0); 
+				ram[index] = value;
+			}
 		}
 
 		public int Size { get => ram.Count; }
 
+		public void ExtendRam(int size)
+		{
+			if (ram.Count < size)
+			{
+				while (ram.Count < size) ram.Add(0);
+			}
+		}
+
 		public Memory(int size = 1024)
 		{
-			ram = new List<int>(new int[size]);
+			ram = new List<long>(new long[size]);
 			
 		}
 
 		public Memory(string[] input)
 		{
-				ram = new List<int>(Array.ConvertAll(input, x => Convert.ToInt32(x)));
+				ram = new List<long>(Array.ConvertAll(input, x => Convert.ToInt64(x)));
 		}
 
 

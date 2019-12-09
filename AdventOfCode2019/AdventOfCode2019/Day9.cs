@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using System.Numerics;
+
+
+namespace AdventOfCode2019
+{
+	class Day9
+	{
+		public static void Problem()
+		{
+			Console.WriteLine("Input file:");
+			string fileName = Console.ReadLine();
+			while (!File.Exists(fileName))
+			{
+				Console.WriteLine("file not found - try again:");
+				fileName = Console.ReadLine();
+			}
+			string input;
+			using (StreamReader sr = new StreamReader(fileName))
+			{
+				input = sr.ReadLine();
+			}
+			//problem 1
+			Computer.Computer c = new Computer.Computer(input.Split(','));
+			c.processor.Input = new long[] { 1 };
+			c.Run();
+			Console.WriteLine(c.processor.outputLong.ToString());
+			//problem 2
+			c = new Computer.Computer(input.Split(','));
+			c.processor.Input = new long[] { 2 };
+			c.Run();
+			Console.WriteLine(c.processor.outputLong.ToString());
+		}
+	}
+}

@@ -9,10 +9,10 @@ namespace AdventOfCode2019.Computer
 		Memory memory;
 
 		public int InstructionPointer { get; private set; } = 0;
-		
 
-		delegate int Function2Ints(int x, int y);
-		delegate bool Bool1Int(int x);
+
+		delegate long Function2Long(long x, long y);
+		delegate bool Bool1Long(long x);
 
 		public CPU(Memory memory)
 		{
@@ -32,11 +32,22 @@ namespace AdventOfCode2019.Computer
 		/// position mode (0): memory[instructionPointer + parameter number] contains the memory address of the value to be read
 		/// immediate mode (1) instructionPointer + paramater number IS the memory address of the value to be read
 		/// </remarks>
-		int GetAddress(int param, bool write = false) 
+		int GetAddress(int param, bool write = false)
 		{
-			if (write) return memory[InstructionPointer + param]; //per Day 5 instructions, "Parameters that an instruction writes to will never be in immediate mode."
-			return instruction.ParamMode[param] == 0 ? memory[InstructionPointer + param] : InstructionPointer + param;
+			if (write && instruction.ParamMode[param] == 1) return Convert.ToInt32(memory[InstructionPointer + param]); //per Day 5 instructions, "Parameters that an instruction writes to will never be in immediate mode."
+			switch (instruction.ParamMode[param])
+			{
+				case 0:
+					return Convert.ToInt32(memory[InstructionPointer + param]);
+				case 1:
+					return InstructionPointer + param;
+				case 2:
+					return Convert.ToInt32(memory[InstructionPointer + param] + relativeBase);
+			}
+			return Convert.ToInt32(memory[InstructionPointer + param]);
 		}
+
+		int relativeBase = 0;
 
 		/// <summary>
 		/// verify that the specified address is in range - if not, set instruction pointer to -2
@@ -45,35 +56,36 @@ namespace AdventOfCode2019.Computer
 		/// <returns></returns>
 		bool checkSize(int address)
 		{
-			if (address >= memory.Size || address < 0) 
-			{
-				InstructionPointer = -2;
-				return false;
-			}
 			return true;
+			//if (address >= memory.Size || address < 0)
+			//{
+			//	InstructionPointer = -2;
+			//	return false;
+			//}
+			//return true;
 		}
 
 		/// <summary>
 		/// performs the input function on the values from the 1st and 2nd parameters and saves it to the 3rd (see GetAddress for notes about parameter modes and addresses to use)
 		/// </summary>
 		/// <param name="function">a function that takes 2 ints as inputs and outputs an int</param>
-		void WriteThridParam(Function2Ints function)
+		void WriteThridParam(Function2Long function)
 		{
-			if (memory.Size <= InstructionPointer + 3)
-			{
-				//pointer is too close to end of memory to complete the operation
-				InstructionPointer = -2;
-				return;
-			}
+			//if (memory.Size <= InstructionPointer + 3)
+			//{
+			//	//pointer is too close to end of memory to complete the operation
+			//	InstructionPointer = -2;
+			//	return;
+			//}
 			int x = GetAddress(1);
 			int y = GetAddress(2);
 			int z = GetAddress(3, true);
-			if (x >= memory.Size || y >= memory.Size || z >= memory.Size)
-			{
-				//x,y,or z pointer is too close to end of memory to complete the operation
-				InstructionPointer = -2;
-				return;
-			}
+			//if (x >= memory.Size || y >= memory.Size || z >= memory.Size)
+			//{
+			//	//x,y,or z pointer is too close to end of memory to complete the operation
+			//	InstructionPointer = -2;
+			//	return;
+			//}
 			memory[z] = function(memory[x], memory[y]);
 			InstructionPointer += 4;
 		}
@@ -82,18 +94,24 @@ namespace AdventOfCode2019.Computer
 		/// if function on the first param is true, jump to the address specified by the 2nd parameter, otherwise increment instruction pointer by 2
 		/// </summary>
 		/// <param name="function"></param>
-		void JumpSecondParam(Bool1Int function)
+		void JumpSecondParam(Bool1Long function)
 		{
-			if (!checkSize(InstructionPointer + 2)) return;
+			//if (!checkSize(InstructionPointer + 2)) return;
 			int testLocation = GetAddress(1);
 			int jumpLocation = GetAddress(2);
-			if (!checkSize(jumpLocation) || !checkSize(testLocation)) return;
-			InstructionPointer = function(memory[testLocation]) ? memory[jumpLocation] : InstructionPointer + 2;
+			//if (!checkSize(jumpLocation) || !checkSize(testLocation)) return;
+			InstructionPointer = Convert.ToInt32(function(memory[testLocation]) ? memory[jumpLocation] : InstructionPointer + 3);
 			return;
 		}
 
-		private int[] input;
-		public int[] Input
+		void shiftRelativeBase() {
+			int amount = Convert.ToInt32(GetAddress(1));
+			relativeBase += Convert.ToInt32(memory[amount]);
+			InstructionPointer += 2;
+		}
+
+		private long[] input;
+		public long [] Input
 		{
 			get => input; 
 			
@@ -108,7 +126,7 @@ namespace AdventOfCode2019.Computer
 		public int ii = 0;
 		public bool hasInput = true;
 		public bool waitingOnInput = false;
-		int Input1()
+		long Input1()
 		{
 
 			//Console.ForegroundColor = ConsoleColor.Magenta;
@@ -118,7 +136,7 @@ namespace AdventOfCode2019.Computer
 			//return input;
 
 			//for day 7 problems
-			int inp = Input[ii];
+			long inp = Input[ii];
 			ii++;
 			if (ii >= Input.Length) hasInput = false;
 			return inp;
@@ -127,6 +145,7 @@ namespace AdventOfCode2019.Computer
 		}
 
 		public int outputX;
+		public long outputLong;
 
 		void Output(object output)
 		{
@@ -134,8 +153,16 @@ namespace AdventOfCode2019.Computer
 			//Console.ForegroundColor = ConsoleColor.Cyan;
 			//Console.WriteLine(output.ToString());
 			//Console.ResetColor();
-
-			outputX = Convert.ToInt32(output);
+			try
+			{
+				outputX = Convert.ToInt32(output);
+			}
+			catch (Exception)
+			{
+				//ignore for now if output can't be an int
+				//todo: refactor old code to make everything use long
+			}
+			outputLong = Convert.ToInt64(output);
 			
 		}
 
@@ -147,17 +174,17 @@ namespace AdventOfCode2019.Computer
 		/// <returns>returns the next starting point, -1 for application completed successfully, or -2 for error</returns>
 		internal void Compute()
 		{
-			if (!checkSize(InstructionPointer)) return;
+			//if (!checkSize(InstructionPointer)) return;
 
-			instruction = new Instruction(memory[InstructionPointer]);
+			instruction = new Instruction(Convert.ToInt32(memory[InstructionPointer]));
 
 			switch (instruction.OpCode)
 			{
 				case 1: //add
-					WriteThridParam((int x, int y) => { return x + y; });
+					WriteThridParam((long x, long y) => { return x + y; });
 					return;
 				case 2: //multiply
-					WriteThridParam((int x, int y) => { return x * y; });
+					WriteThridParam((long x, long y) => { return x * y; });
 					return;
 				case 3: //input
 					if (!checkSize(InstructionPointer + 1)) return;
@@ -179,19 +206,20 @@ namespace AdventOfCode2019.Computer
 					InstructionPointer += 2;
 					return;
 				case 5: //jump if true
-					JumpSecondParam((int x) => { return x != 0; });
-					return;
+					JumpSecondParam((long x) => { return x != 0; });
+					break;
 				case 6: //jump if false
-					JumpSecondParam((int x) => { return x == 0; });
-					return;
+					JumpSecondParam((long x) => { return x == 0; });
+					break;
 				case 7: //less than
-					WriteThridParam((int x, int y) => { return x < y ? 1 : 0; });
+					WriteThridParam((long x, long y) => { return x < y ? 1 : 0; });
 					break;
 				case 8: //equals
-					WriteThridParam((int x, int y) => { return x == y ? 1 : 0; });
+					WriteThridParam((long x, long y) => { return x == y ? 1 : 0; });
 					break;
-
-
+				case 9:
+					shiftRelativeBase();
+					break;
 				case 99:
 					//Console.ForegroundColor = ConsoleColor.Green;
 					//Console.WriteLine("end of program");
