@@ -124,7 +124,7 @@ namespace AdventOfCode2019.Computer
 			}
 		}
 		public int ii = 0;
-		public bool hasInput = true;
+		public bool hasInput = false;
 		public bool waitingOnInput = false;
 		long Input1()
 		{
@@ -146,6 +146,7 @@ namespace AdventOfCode2019.Computer
 
 		public int outputX;
 		public long outputLong;
+		public Queue<long> outputQueue = new Queue<long>();
 
 		void Output(object output)
 		{
@@ -163,6 +164,7 @@ namespace AdventOfCode2019.Computer
 				//todo: refactor old code to make everything use long
 			}
 			outputLong = Convert.ToInt64(output);
+			outputQueue.Enqueue(Convert.ToInt64(output));
 			
 		}
 
