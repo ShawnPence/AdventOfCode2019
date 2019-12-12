@@ -182,6 +182,21 @@ namespace AdventOfCode2019
 				Z = z;
 			}
 
+			public moon(string moonVal)
+			{
+				string[] replaceVals = new string[] { "<", "=", "x", "y", "z", ">" };
+				foreach (string x in replaceVals) moonVal = moonVal.Replace(x, "");
+				var vals = moonVal.Split(',');
+				X = Convert.ToInt32(vals[0]);
+				Y = Convert.ToInt32(vals[1]);
+				Z = Convert.ToInt32(vals[2]);
+			}
+
+			public override string ToString()
+			{
+				return $"<x={X.ToString()},y={Y.ToString()},z={Z.ToString()},vX={VX.ToString()},vY={VY.ToString()},vZ={VZ.ToString()}>";
+			}
+
 			public void ApplyGravity(moon m)
 			{
 				VX += m.X.CompareTo(X);
