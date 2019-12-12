@@ -55,11 +55,11 @@ namespace AdventOfCode2019
 
 				if (!colors.ContainsKey(x) || !colors[x].ContainsKey(y))
 				{
-					c.processor.Input = new long[] { 0 };
+					c.processor.Input(0);
 				}
 				else
 				{
-					c.processor.Input = new long[] { colors[x][y] };
+					c.processor.Input(colors[x][y]);
 				}
 
 				c.Run();
@@ -122,7 +122,7 @@ namespace AdventOfCode2019
 
 			Computer.Computer c = new Computer.Computer(fileName);
 			//tell computer first input is painted;
-			c.processor.Input = new long[] { 1 };
+			c.processor.Input(1);
 			c.Run();
 			while (c.processor.InstructionPointer >= 0)
 			{
@@ -156,11 +156,11 @@ namespace AdventOfCode2019
 
 				if (!colors.ContainsKey(x) || !colors[x].ContainsKey(y))
 				{
-					c.processor.Input = new long[] { 0 };
+					c.processor.Input( 0);
 				}
 				else
 				{
-					c.processor.Input = new long[] { colors[x][y] };
+					c.processor.Input(colors[x][y]);
 				}
 
 				c.Run();

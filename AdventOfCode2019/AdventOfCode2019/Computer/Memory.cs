@@ -11,7 +11,7 @@ namespace AdventOfCode2019.Computer
 		public long this[int index]
 		{
 			get {
-				while (ram.Count < index + 1) ram.Add(0);
+				while (ram.Count < index + 1) ram.Add(0);  //per instructions that ram should be significantly larger than input, allow for arbitrarily large ram
 				return ram[index];
 			}
 			set { 
