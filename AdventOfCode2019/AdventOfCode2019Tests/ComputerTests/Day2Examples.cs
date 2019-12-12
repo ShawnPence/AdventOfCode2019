@@ -2,7 +2,7 @@
 
 using AdventOfCode2019.Computer;
 
-namespace AdventOfCode2019Tests
+namespace AoC19ComputerTests
 {
 	public class Day2Examples
 	{
