@@ -19,10 +19,10 @@ namespace AdventOfCode2019
 				fileName = Console.ReadLine();
 			}
 
-			int best = 0;
+			long best = 0;
 			for (int a = 0; a < 5; a++)
 			{
-				int outA = getOutput(fileName, a, 0);
+				long outA = getOutput(fileName, a, 0);
 
 				for (int b = 0; b < 5; b++)
 				{
@@ -30,19 +30,19 @@ namespace AdventOfCode2019
 
 					if (b == a) continue;
 
-					int outB = getOutput(fileName, b, outA);
+					long outB = getOutput(fileName, b, outA);
 
 					for (int c = 0; c < 5; c++)
 					{
 						if (c == a || c == b) continue;
-						int outC = getOutput(fileName, c, outB);
+						long outC = getOutput(fileName, c, outB);
 
 						for (int d = 0; d < 5; d++)
 						{
 							if (d == a || d == b || d == c) continue;
 							int e = 10 - a - b - c - d;
 
-							int outD = getOutput(fileName, d, outC);
+							long outD = getOutput(fileName, d, outC);
 							
 							best = Math.Max(best, getOutput(fileName, e, outD));
 						}
@@ -65,7 +65,7 @@ namespace AdventOfCode2019
 				fileName = Console.ReadLine();
 			}
 
-			int best = 0;
+			long best = 0;
 			for (int a = 0; a < 5; a++)
 			{
 
@@ -85,25 +85,25 @@ namespace AdventOfCode2019
 							if (d == a || d == b || d == c) continue;
 							int e = 10 - a - b - c - d;
 							Computer.Computer[] comp = new Computer.Computer[5];
-							int signal = 0;
+							long[] signal = new long[5];
 							int[] vals = new int[] { a + 5, b + 5, c + 5, d + 5, e + 5 };
 							for (int i = 0; i < 5; i++)
 							{ comp[i] = new Computer.Computer(fileName);
-								comp[i].processor.Input = new long[] { vals[i], signal };
+								comp[i].processor.Input = new long[] { vals[i], signal[(i+4) % 5] };
 								comp[i].Run();
-								signal = comp[i].processor.outputX;
+								signal[i] = comp[i].processor.outputQueue.Dequeue();
 							}
 							int l = 0;
 							while (comp[4].processor.InstructionPointer > 0)
 							{
 								//run until E's program terminates
-								comp[l].processor.Input = new long[] { signal };
+								comp[l].processor.Input = new long[] { signal[(l+4) % 5] };
 								comp[l].Run();
-								signal = comp[l].processor.outputX;
+								signal[l] = comp[l].processor.outputQueue.Dequeue();
 								l++;
 								l = l % 5;
 							}
-							best = Math.Max(best, comp[4].processor.outputX);
+							best = Math.Max(best, l == 0 ? signal[4] : comp[4].processor.outputQueue.Dequeue());
 
 						}
 					}
@@ -115,12 +115,12 @@ namespace AdventOfCode2019
 
 		}
 
-		public static int getOutput(string fileName, int phase, int input)
+		public static long getOutput(string fileName, int phase, long input)
 		{
 			Computer.Computer comp = new Computer.Computer(fileName);
 			comp.processor.Input = new long[] { phase, input };
 			comp.Run();
-			return comp.processor.outputX;
+			return comp.processor.outputQueue.Dequeue();
 		}
 	}
 }

@@ -144,28 +144,14 @@ namespace AdventOfCode2019.Computer
 
 		}
 
-		public int outputX;
-		public long outputLong;
+		//public int outputX;
+		//public long outputLong;
+
 		public Queue<long> outputQueue = new Queue<long>();
 
 		void Output(object output)
 		{
-
-			//Console.ForegroundColor = ConsoleColor.Cyan;
-			//Console.WriteLine(output.ToString());
-			//Console.ResetColor();
-			try
-			{
-				outputX = Convert.ToInt32(output);
-			}
-			catch (Exception)
-			{
-				//ignore for now if output can't be an int
-				//todo: refactor old code to make everything use long
-			}
-			outputLong = Convert.ToInt64(output);
 			outputQueue.Enqueue(Convert.ToInt64(output));
-			
 		}
 
 		/// <summary>
