@@ -121,6 +121,22 @@ namespace AdventOfCode2019
 			}
 
 			Console.WriteLine(steps);
+			
+			foreach(int x in walls.Keys)
+			{
+				foreach (int y in walls[x])
+				{
+					Console.SetCursorPosition(x + 22, y + 26);
+					Console.Write("#");
+				}
+			}
+			Console.SetCursorPosition(22, 26);
+			Console.Write(".");
+			Console.SetCursorPosition(oxygenLocation.X + 22, oxygenLocation.Y + 26);
+			Console.Write("o");
+			Console.SetCursorPosition(0, 47);
+			Console.Write("Press any key to continue...");
+			Console.ReadKey();
 		}
 
 		static void AddNextPaths(Queue<DroidPath> next, DroidPath current, Dictionary<int, HashSet<int>> walls, Dictionary<int, HashSet<int>> found)
