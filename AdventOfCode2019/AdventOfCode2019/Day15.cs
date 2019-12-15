@@ -31,11 +31,12 @@ namespace AdventOfCode2019
 			bool done = false;
 			
 			Dictionary<int, HashSet<int>> walls = new Dictionary<int, HashSet<int>>();
+			Dictionary<int, HashSet<int>> found = new Dictionary<int, HashSet<int>>();
 			Queue<DroidPath> next = new Queue<DroidPath>(); 
 			DroidPath start = new DroidPath();
-			start.Found[0] = new HashSet<int>();
-			start.Found[0].Add(0);
-			AddNextPaths(next, start, walls);
+			found[0] = new HashSet<int>();
+			found[0].Add(0);
+			AddNextPaths(next, start, walls, found);
 
 			DroidPath oxygenLocation = new DroidPath();
 
@@ -59,7 +60,7 @@ namespace AdventOfCode2019
 						break;
 					case 1:
 						//enqueue next steps
-						AddNextPaths(next, d, walls);
+						AddNextPaths(next, d, walls, found);
 						break;
 					case 2:
 						done = true;
@@ -70,12 +71,12 @@ namespace AdventOfCode2019
 			}
 
 			Dictionary<int, Dictionary<int,int>> stepsTo = new Dictionary<int, Dictionary<int, int>>();
-			oxygenLocation.Found.Clear();
-			oxygenLocation.Found[oxygenLocation.X] = new HashSet<int>();
-			oxygenLocation.Found[oxygenLocation.X].Add(oxygenLocation.Y);
+			found.Clear();
+			found[oxygenLocation.X] = new HashSet<int>();
+			found[oxygenLocation.X].Add(oxygenLocation.Y);
 			oxygenLocation.StepCount = 0;
 			next.Clear();
-			AddNextPaths(next, oxygenLocation, walls);
+			AddNextPaths(next, oxygenLocation, walls, found);
 			while (next.Count > 0)
 			{
 				//dequeue next item
@@ -97,7 +98,7 @@ namespace AdventOfCode2019
 						break;
 					case 1:
 						//enqueue next steps
-						AddNextPaths(next, d, walls);
+						AddNextPaths(next, d, walls, found);
 						if (!stepsTo.ContainsKey(d.X) || !stepsTo[d.X].ContainsKey(d.Y))
 						{
 							if (!stepsTo.ContainsKey(d.X)) stepsTo[d.X] = new Dictionary<int, int>();
@@ -122,18 +123,13 @@ namespace AdventOfCode2019
 			Console.WriteLine(steps);
 		}
 
-		static void AddNextPaths(Queue<DroidPath> next, DroidPath current, Dictionary<int, HashSet<int>> walls)
+		static void AddNextPaths(Queue<DroidPath> next, DroidPath current, Dictionary<int, HashSet<int>> walls, Dictionary<int, HashSet<int>> found)
 		{
 			//inputs
 			//north (1), south (2), west (3), and east (4)
 			for (int i = 1; i <= 4; i++)
 			{
 				DroidPath d = new DroidPath();
-				foreach (int x in current.Found.Keys)
-				{
-					d.Found[x] = new HashSet<int>();
-					d.Found[x].UnionWith(current.Found[x]);
-				}
 				d.stepOrder.AddRange(current.stepOrder);
 				d.StepCount = current.StepCount + 1;
 				d.X = current.X;
@@ -155,17 +151,16 @@ namespace AdventOfCode2019
 						break;		
 				}
 				bool add = true;
-				if (d.Found.ContainsKey(d.X) && d.Found[d.X].Contains(d.Y)) add = false;  //already visited this location - don't add to queue
+				if (found.ContainsKey(d.X) && found[d.X].Contains(d.Y)) add = false;  //already visited this location - don't add to queue
 				if (walls.ContainsKey(d.X) && walls[d.X].Contains(d.Y)) add = false; //don't walk into wall
-				if (!d.Found.ContainsKey(d.X)) d.Found[d.X] = new HashSet<int>();
-				d.Found[d.X].Add(d.Y);
+				if (!found.ContainsKey(d.X)) found[d.X] = new HashSet<int>();
+				found[d.X].Add(d.Y);
 				if(add) next.Enqueue(d);
 			}
 		}
 
 		class DroidPath
 		{
-			public Dictionary<int, HashSet<int>> Found = new Dictionary<int, HashSet<int>>();
 			public int X = 0;
 			public int Y = 0;
 			public int StepCount = 0;
