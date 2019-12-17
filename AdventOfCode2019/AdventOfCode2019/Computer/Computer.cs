@@ -28,6 +28,9 @@ namespace AdventOfCode2019.Computer
 			processor = new CPU(ram);
 		}
 
+		public void Input(long val) => processor.Input(val);
+		public void Input(long[] val) => processor.Input(val);
+		public Queue<long> Output => processor.outputQueue;
 	
 		public void Run()
 		{
