@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2019", "AdventOfCode2019\AdventOfCode2019.csproj", "{6CE3BA95-B3FE-4A66-AD96-B873DD140869}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode2019Tests", "AdventOfCode2019Tests\AdventOfCode2019Tests.csproj", "{E6EE6266-7DA0-4A0A-8E37-51EE4D89AAAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode2019Tests", "AdventOfCode2019Tests\AdventOfCode2019Tests.csproj", "{E6EE6266-7DA0-4A0A-8E37-51EE4D89AAAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B49B3D2F-C8CB-4748-B249-3C55CE212432}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
