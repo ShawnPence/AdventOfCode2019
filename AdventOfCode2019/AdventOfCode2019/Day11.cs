@@ -21,7 +21,7 @@ namespace AdventOfCode2019
 			var colors = new Dictionary<int, Dictionary<int, long>>();
 			int direction = 0;
 
-			Computer.Computer c = new Computer.Computer(fileName);
+			Computer c = new Computer(fileName);
 			c.Run();
 			while (c.processor.InstructionPointer >= 0)
 			{
@@ -120,7 +120,7 @@ namespace AdventOfCode2019
 			var colors = new Dictionary<int, Dictionary<int, long>>();
 			int direction = 0;
 
-			Computer.Computer c = new Computer.Computer(fileName);
+			Computer c = new Computer(fileName);
 			//tell computer first input is painted;
 			c.processor.Input(1);
 			c.Run();

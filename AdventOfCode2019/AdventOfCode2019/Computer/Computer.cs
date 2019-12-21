@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace AdventOfCode2019.Computer
+namespace AdventOfCode2019
 {
 	public class Computer
 	{

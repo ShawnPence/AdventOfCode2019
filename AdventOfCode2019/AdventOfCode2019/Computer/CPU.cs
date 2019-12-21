@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdventOfCode2019.Computer
+namespace AdventOfCode2019
 {
 	public class CPU
 	{

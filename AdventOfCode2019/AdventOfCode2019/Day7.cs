@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Numerics;
-using AdventOfCode2019.Computer;
 
 namespace AdventOfCode2019
 {
@@ -84,11 +83,11 @@ namespace AdventOfCode2019
 						{
 							if (d == a || d == b || d == c) continue;
 							int e = 10 - a - b - c - d;
-							Computer.Computer[] comp = new Computer.Computer[5];
+							Computer[] comp = new Computer[5];
 							long[] signal = new long[5];
 							int[] vals = new int[] { a + 5, b + 5, c + 5, d + 5, e + 5 };
 							for (int i = 0; i < 5; i++)
-							{ comp[i] = new Computer.Computer(fileName);
+							{ comp[i] = new Computer(fileName);
 								comp[i].processor.Input(vals[i]);
 								comp[i].processor.Input(signal[(i + 4) % 5]);
 								comp[i].Run();
@@ -118,7 +117,7 @@ namespace AdventOfCode2019
 
 		public static long getOutput(string fileName, int phase, long input)
 		{
-			Computer.Computer comp = new Computer.Computer(fileName);
+			Computer comp = new Computer(fileName);
 			comp.processor.Input(new long[] { phase, input });
 			comp.Run();
 			return comp.processor.outputQueue.Dequeue();

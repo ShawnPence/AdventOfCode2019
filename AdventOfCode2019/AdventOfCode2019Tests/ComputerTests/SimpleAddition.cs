@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-using AdventOfCode2019.Computer;
+using AdventOfCode2019;
 
 namespace AoC19ComputerTests
 {

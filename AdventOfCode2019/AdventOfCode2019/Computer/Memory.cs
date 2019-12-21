@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AdventOfCode2019.Computer
-{
+namespace AdventOfCode2019
+{ 
 	public class Memory
 	{
 		List<long> ram; //using list to allow dynamic resizing memory if necessary for coding challenges

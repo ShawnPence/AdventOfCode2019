@@ -21,7 +21,7 @@ namespace AdventOfCode2019
 				fileName = Console.ReadLine();
 			}
 
-			Computer.Computer comp = new Computer.Computer(fileName);
+			Computer comp = new Computer(fileName);
 			comp.Input(76);
 			comp.Run();
 			List<string> lines = new List<string>();
@@ -228,7 +228,7 @@ namespace AdventOfCode2019
 
 
 
-			Computer.Computer c2 = new Computer.Computer(fileName);
+			Computer c2 = new Computer(fileName);
 			c2.Ram[0] = 2;
 			foreach (var ins in MainInstructions) c2.Input(ins);
 			c2.Input(10);

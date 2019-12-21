@@ -21,7 +21,7 @@ namespace AdventOfCode2019
 			for (int x = 0; x < 50; x++)
 				for (int y = 0; y < 50; y++)
 				{
-					Computer.Computer c = new Computer.Computer(fileName);
+					Computer c = new Computer(fileName);
 					c.Input(x);
 					c.Input(y);
 					c.Run();
@@ -40,7 +40,7 @@ namespace AdventOfCode2019
 				bool found1 = false;
 				for (int x = x1; x < 10000 && !found1; x++)
 				{
-					Computer.Computer c = new Computer.Computer(fileName);
+					Computer c = new Computer(fileName);
 					c.Input(x);
 					c.Input(y);
 					c.Run();
@@ -55,7 +55,7 @@ namespace AdventOfCode2019
 						long val2 = 0;
 						while (val2 == 0 && tempX < 10000)
 						{
-							Computer.Computer c2 = new Computer.Computer(fileName);
+							Computer c2 = new Computer(fileName);
 							c2.Input(tempX);
 							c2.Input(tempY);
 							c2.Run();
@@ -63,7 +63,7 @@ namespace AdventOfCode2019
 							if (val2 == 0) tempX++;
 						}
 						//check if tempX+99 at original y is a 1
-						Computer.Computer c3 = new Computer.Computer(fileName);
+						Computer c3 = new Computer(fileName);
 						c3.Input(tempX + 99);
 						c3.Input(y);
 						c3.Run();

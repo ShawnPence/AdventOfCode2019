@@ -45,7 +45,7 @@ namespace AdventOfCode2019
 				//dequeue next item
 				DroidPath d = next.Dequeue();
 				//run computer to end of inputs
-				Computer.Computer c = new Computer.Computer(fileName);
+				Computer c = new Computer(fileName);
 				foreach (int m in d.stepOrder) c.processor.Input(m);
 				c.Run();
 
@@ -83,7 +83,7 @@ namespace AdventOfCode2019
 				DroidPath d = next.Dequeue();
 
 				//run computer to end of inputs
-				Computer.Computer c = new Computer.Computer(fileName);
+				Computer c = new Computer(fileName);
 				foreach (int m in d.stepOrder) c.processor.Input(m);
 				c.Run();
 

@@ -15,7 +15,7 @@ namespace AdventOfCode2019
 				Console.WriteLine("file not found - try again:");
 				fileName = Console.ReadLine();
 			}
-			Computer.Computer c = new Computer.Computer(fileName);
+			Computer c = new Computer(fileName);
 			c.Run();
 			long[] output = c.processor.outputQueue.ToArray();
 			int blocks = 0;
@@ -49,7 +49,7 @@ namespace AdventOfCode2019
 			}
 
 
-			Computer.Computer c = new Computer.Computer(fileName);
+			Computer c = new Computer(fileName);
 			c.Ram[0] = 2;
 			while (c.processor.InstructionPointer >= 0)
 			{

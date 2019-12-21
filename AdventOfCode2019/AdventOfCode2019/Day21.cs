@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
+
 namespace AdventOfCode2019
 {
 	
@@ -23,7 +24,7 @@ namespace AdventOfCode2019
 			stopwatch.Start();
 
 
-			var comp = new Computer.Computer(fileName);
+			var comp = new Computer(fileName);
 			string[] instructions = new string[] {
 				"NOT A J\n",
 				"NOT B T\n",
@@ -69,7 +70,7 @@ namespace AdventOfCode2019
 				"AND T J\n",//same as step 1 execpt don't jump if !(E|H) -- don't jump if can neither jump nor walk after this jump
 				"RUN\n"
 			};
-			comp = new Computer.Computer(fileName);
+			comp = new Computer(fileName);
 			foreach (string s in instructions)
 				foreach (char c in s)
 					comp.Input(c);
