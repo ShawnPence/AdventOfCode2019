@@ -6,7 +6,7 @@ namespace AdventOfCode2019
 { 
 	public class Memory
 	{
-		List<long> ram; //using list to allow dynamic resizing memory if necessary for coding challenges
+		readonly List<long> ram; //using list to allow dynamic resizing memory if necessary for coding challenges
 
 		public long this[int index]
 		{

@@ -4,7 +4,7 @@ namespace AdventOfCode2019
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
 			Day21.Problems();
 		}

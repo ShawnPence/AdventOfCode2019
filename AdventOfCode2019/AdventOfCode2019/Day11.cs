@@ -23,16 +23,16 @@ namespace AdventOfCode2019
 
 			Computer c = new Computer(fileName);
 			c.Run();
-			while (c.processor.InstructionPointer >= 0)
+			while (c.Processor.InstructionPointer >= 0)
 			{
 				//read output queue, move as instructed
 
-				while (c.processor.outputQueue.Count > 0)
+				while (c.Processor.OutputQueue.Count > 0)
 				{
-					long colorToPaint = c.processor.outputQueue.Dequeue();
+					long colorToPaint = c.Processor.OutputQueue.Dequeue();
 					if (!colors.ContainsKey(x)) colors[x] = new Dictionary<int, long>();
 					colors[x][y] = colorToPaint;
-					direction = Turn(direction, c.processor.outputQueue.Dequeue());
+					direction = Turn(direction, c.Processor.OutputQueue.Dequeue());
 					switch (direction)
 					{
 						case 0:
@@ -55,11 +55,11 @@ namespace AdventOfCode2019
 
 				if (!colors.ContainsKey(x) || !colors[x].ContainsKey(y))
 				{
-					c.processor.Input(0);
+					c.Processor.Input(0);
 				}
 				else
 				{
-					c.processor.Input(colors[x][y]);
+					c.Processor.Input(colors[x][y]);
 				}
 
 				c.Run();
@@ -67,12 +67,12 @@ namespace AdventOfCode2019
 			}
 
 			//read any remaining queue once processor is complete
-			while (c.processor.outputQueue.Count > 0)
+			while (c.Processor.OutputQueue.Count > 0)
 			{
-				long colorToPaint = c.processor.outputQueue.Dequeue();
+				long colorToPaint = c.Processor.OutputQueue.Dequeue();
 				if (!colors.ContainsKey(x)) colors[x] = new Dictionary<int, long>();
 				colors[x][y] = colorToPaint;
-				direction = Turn(direction, c.processor.outputQueue.Dequeue());
+				direction = Turn(direction, c.Processor.OutputQueue.Dequeue());
 				switch (direction)
 				{
 					case 0:
@@ -122,18 +122,18 @@ namespace AdventOfCode2019
 
 			Computer c = new Computer(fileName);
 			//tell computer first input is painted;
-			c.processor.Input(1);
+			c.Processor.Input(1);
 			c.Run();
-			while (c.processor.InstructionPointer >= 0)
+			while (c.Processor.InstructionPointer >= 0)
 			{
 				//read output queue, move as instructed
 
-				while (c.processor.outputQueue.Count > 0)
+				while (c.Processor.OutputQueue.Count > 0)
 				{
-					long colorToPaint = c.processor.outputQueue.Dequeue();
+					long colorToPaint = c.Processor.OutputQueue.Dequeue();
 					if (!colors.ContainsKey(x)) colors[x] = new Dictionary<int, long>();
 					colors[x][y] = colorToPaint;
-					direction = Turn(direction, c.processor.outputQueue.Dequeue());
+					direction = Turn(direction, c.Processor.OutputQueue.Dequeue());
 					switch (direction)
 					{
 						case 0:
@@ -156,11 +156,11 @@ namespace AdventOfCode2019
 
 				if (!colors.ContainsKey(x) || !colors[x].ContainsKey(y))
 				{
-					c.processor.Input( 0);
+					c.Processor.Input( 0);
 				}
 				else
 				{
-					c.processor.Input(colors[x][y]);
+					c.Processor.Input(colors[x][y]);
 				}
 
 				c.Run();
@@ -168,12 +168,12 @@ namespace AdventOfCode2019
 			}
 
 			//read any remaining queue once processor is complete
-			while (c.processor.outputQueue.Count > 0)
+			while (c.Processor.OutputQueue.Count > 0)
 			{
-				long colorToPaint = c.processor.outputQueue.Dequeue();
+				long colorToPaint = c.Processor.OutputQueue.Dequeue();
 				if (!colors.ContainsKey(x)) colors[x] = new Dictionary<int, long>();
 				colors[x][y] = colorToPaint;
-				direction = Turn(direction, c.processor.outputQueue.Dequeue());
+				direction = Turn(direction, c.Processor.OutputQueue.Dequeue());
 				switch (direction)
 				{
 					case 0:

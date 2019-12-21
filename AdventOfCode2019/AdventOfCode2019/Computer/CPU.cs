@@ -6,7 +6,7 @@ namespace AdventOfCode2019
 {
 	public class CPU
 	{
-		Memory memory;
+		readonly Memory memory;
 
 		/// <summary>memory location of the current instruction</summary>
 		public int InstructionPointer { get; private set; } = 0;
@@ -46,6 +46,8 @@ namespace AdventOfCode2019
 				case 2:
 					//mode 2 works like mode 0 but the returned address should be offset by relativeBase
 					return Convert.ToInt32(memory[InstructionPointer + param] + relativeBase);
+				default:
+					break;
 			}
 			return Convert.ToInt32(memory[InstructionPointer + param]);
 		}
@@ -76,32 +78,31 @@ namespace AdventOfCode2019
 			return;
 		}
 
-		void shiftRelativeBase() {
+		void ShiftRelativeBase() {
 			int amountAddress = Convert.ToInt32(GetAddress(1));
 			relativeBase += Convert.ToInt32(memory[amountAddress]);
 			InstructionPointer += 2;
 		}
 
-
-		Queue<long> input = new Queue<long>();
+		readonly Queue<long> input = new Queue<long>();
 		public bool HasInput { get => input.Count > 0; }
-		public bool waitingOnInput = false;
+		public bool WaitingOnInput { get; private set;}  = false;
 		public void Input(long i) 
 		{
-			waitingOnInput = false; 
+			WaitingOnInput = false; 
 			input.Enqueue(i);
 		}
 		public void Input(long[] i)
 		{
-			if (i.Length < 1) return;
-			waitingOnInput = false;
+			if (i == null || i.Length < 1) return;
+			WaitingOnInput = false;
 			foreach (long l in i) input.Enqueue(l);
 		}
 
-		public Queue<long> outputQueue = new Queue<long>();
+		public Queue<long> OutputQueue { get; private set; } = new Queue<long>();
 		void Output(object output)
 		{
-			outputQueue.Enqueue(Convert.ToInt64(output));
+			OutputQueue.Enqueue(Convert.ToInt64(output));
 		}
 
 
@@ -123,7 +124,7 @@ namespace AdventOfCode2019
 					int writeAddress = GetAddress(1, true);
 					if(!HasInput)
 					{
-						waitingOnInput = true;
+						WaitingOnInput = true;
 						return;
 					}
 					memory[writeAddress] = input.Dequeue();
@@ -147,7 +148,7 @@ namespace AdventOfCode2019
 					WriteThridParam((long x, long y) => { return x == y ? 1 : 0; });
 					break;
 				case 9:
-					shiftRelativeBase();
+					ShiftRelativeBase();
 					break;
 				case 99:
 					InstructionPointer = -1;

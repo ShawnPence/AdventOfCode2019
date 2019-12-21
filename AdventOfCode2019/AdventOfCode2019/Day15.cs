@@ -46,12 +46,12 @@ namespace AdventOfCode2019
 				DroidPath d = next.Dequeue();
 				//run computer to end of inputs
 				Computer c = new Computer(fileName);
-				foreach (int m in d.stepOrder) c.processor.Input(m);
+				foreach (int m in d.stepOrder) c.Processor.Input(m);
 				c.Run();
 
 				//read last output queue item
-				long[] output = c.processor.outputQueue.ToArray();
-				switch (output[output.Length - 1])
+				long[] output = c.Processor.OutputQueue.ToArray();
+				switch (output[^1])
 				{
 					case 0:
 						//wall - add to walls list - don't attempt to move
@@ -84,12 +84,12 @@ namespace AdventOfCode2019
 
 				//run computer to end of inputs
 				Computer c = new Computer(fileName);
-				foreach (int m in d.stepOrder) c.processor.Input(m);
+				foreach (int m in d.stepOrder) c.Processor.Input(m);
 				c.Run();
 
 				//read last output queue item
-				long[] output = c.processor.outputQueue.ToArray();
-				switch (output[output.Length - 1])
+				long[] output = c.Processor.OutputQueue.ToArray();
+				switch (output[^1])
 				{
 					case 0:
 						//wall - add to walls list - don't attempt to move

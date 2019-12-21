@@ -5,7 +5,7 @@ using System.IO;
 
 namespace AdventOfCode2019
 {
-	public class Day12
+	public static class Day12
 	{
 		public static void Problems()
 		{
@@ -30,6 +30,7 @@ namespace AdventOfCode2019
 
 		public static void Problem(int iterations, string[] moonStrings, out int energyAfterIterations, out long returnToOrigin)
 		{
+			if (moonStrings == null) throw new NullReferenceException();
 			Moon[] moons = new Moon[moonStrings.Length];
 			Moon[] originalMoons = new Moon[moonStrings.Length];
 			for (int i = 0; i < moonStrings.Length; i++)
@@ -112,7 +113,7 @@ namespace AdventOfCode2019
 		}
 
 
-		public static bool CompareX(Moon[] original, Moon[] current)
+		static bool CompareX(Moon[] original, Moon[] current)
 		{
 			for (int i = 0; i < original.Length; i++)
 			{
@@ -121,7 +122,7 @@ namespace AdventOfCode2019
 			return true;
 		}
 
-		public static bool CompareY(Moon[] original, Moon[] current)
+		static bool CompareY(Moon[] original, Moon[] current)
 		{
 			for (int i = 0; i < original.Length; i++)
 			{
@@ -130,7 +131,7 @@ namespace AdventOfCode2019
 			return true;
 		}
 
-		public static bool CompareZ(Moon[] original, Moon[] current)
+		static bool CompareZ(Moon[] original, Moon[] current)
 		{
 			for (int i = 0; i < original.Length; i++)
 			{
@@ -139,7 +140,7 @@ namespace AdventOfCode2019
 			return true;
 		}
 
-		public class Moon
+		class Moon
 		{
 			public int X;
 			public int Y;
@@ -159,7 +160,7 @@ namespace AdventOfCode2019
 			public Moon(string moonVal)
 			{
 				string[] replaceVals = new string[] { "<", "=", "x", "y", "z", ">" };
-				foreach (string x in replaceVals) moonVal = moonVal.Replace(x, "");
+				foreach (string x in replaceVals) moonVal = moonVal.Replace(x, "", StringComparison.Ordinal);
 				var vals = moonVal.Split(',');
 				X = Convert.ToInt32(vals[0]);
 				Y = Convert.ToInt32(vals[1]);

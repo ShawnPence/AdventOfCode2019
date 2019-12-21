@@ -25,14 +25,14 @@ namespace AdventOfCode2019
 			}
 			//problem 1
 			Computer c = new Computer(input.Split(','));
-			c.processor.Input(1);
+			c.Processor.Input(1);
 			c.Run();
-			Console.WriteLine(c.processor.outputQueue.Dequeue().ToString());
+			Console.WriteLine(c.Processor.OutputQueue.Dequeue().ToString());
 			//problem 2
 			c = new Computer(input.Split(','));
-			c.processor.Input(2);
+			c.Processor.Input(2);
 			c.Run();
-			Console.WriteLine(c.processor.outputQueue.Dequeue().ToString());
+			Console.WriteLine(c.Processor.OutputQueue.Dequeue().ToString());
 		}
 	}
 }

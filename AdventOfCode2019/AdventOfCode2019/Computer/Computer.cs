@@ -11,12 +11,12 @@ namespace AdventOfCode2019
 		public Memory Ram { get => ram; set => ram = value; }
 
 
-		public CPU processor;
+		public CPU Processor { get; private set; }
 
 		public Computer(string[] input)
 		{
 			ram = new Memory(input);
-			processor = new CPU(ram);
+			Processor = new CPU(ram);
 		}
 
 		public Computer(string filename)
@@ -25,16 +25,16 @@ namespace AdventOfCode2019
 			{
 				ram = new Memory(sr.ReadLine().Split(','));
 			}
-			processor = new CPU(ram);
+			Processor = new CPU(ram);
 		}
 
-		public void Input(long val) => processor.Input(val);
-		public void Input(long[] val) => processor.Input(val);
-		public Queue<long> Output => processor.outputQueue;
+		public void Input(long val) => Processor.Input(val);
+		public void Input(long[] val) => Processor.Input(val);
+		public Queue<long> Output => Processor.OutputQueue;
 	
 		public void Run()
 		{
-			while (processor.InstructionPointer >= 0 && !processor.waitingOnInput) processor.Compute();
+			while (Processor.InstructionPointer >= 0 && !Processor.WaitingOnInput) Processor.Compute();
 		}
 
 	}

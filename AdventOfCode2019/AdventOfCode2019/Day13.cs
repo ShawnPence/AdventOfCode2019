@@ -17,7 +17,7 @@ namespace AdventOfCode2019
 			}
 			Computer c = new Computer(fileName);
 			c.Run();
-			long[] output = c.processor.outputQueue.ToArray();
+			long[] output = c.Processor.OutputQueue.ToArray();
 			int blocks = 0;
 			for (int i = 2; i < output.Length; i += 3)
 			{
@@ -51,11 +51,11 @@ namespace AdventOfCode2019
 
 			Computer c = new Computer(fileName);
 			c.Ram[0] = 2;
-			while (c.processor.InstructionPointer >= 0)
+			while (c.Processor.InstructionPointer >= 0)
 			{
 				c.Run();
-				long[] output = c.processor.outputQueue.ToArray();
-				c.processor.outputQueue.Clear();
+				long[] output = c.Processor.OutputQueue.ToArray();
+				c.Processor.OutputQueue.Clear();
 				int eX = 0;
 				int oX = 0;
 				for (int i = 0; i < output.Length - 2; i += 3)
@@ -98,13 +98,13 @@ namespace AdventOfCode2019
 				}//draw screen for loop
 
 				//move paddle to track the ball
-				c.processor.Input(oX.CompareTo(eX));
+				c.Processor.Input(oX.CompareTo(eX));
 
 			};
 
 			{
 				//draw any remaining output after game ends
-				long[] output = c.processor.outputQueue.ToArray();
+				long[] output = c.Processor.OutputQueue.ToArray();
 				for (int i = 0; i < output.Length - 2; i += 3)
 				{
 					int x = Convert.ToInt32(output[i]);
