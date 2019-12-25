@@ -6,7 +6,7 @@ namespace AdventOfCode2019
 	{
 		static void Main()
 		{
-			Day24.Problems();
+			Day25.Problems();
 		}
 	}
 }
